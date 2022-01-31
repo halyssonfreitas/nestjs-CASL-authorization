@@ -25,6 +25,7 @@ function swagger(app: INestApplication) {
     .addTag('API')
     .addTag('Auth')
     .addTag('User')
+    .addTag('Articles')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

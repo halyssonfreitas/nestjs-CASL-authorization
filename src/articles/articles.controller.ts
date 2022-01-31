@@ -1,9 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
+import { erroApiResponse } from 'src/util/dto/error-ApiResponse.dto';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 
 @Controller('articles')
+@ApiTags('Articles')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
+@ApiUnauthorizedResponse({
+  description: 'You are unauthorized to access this endpoint.',
+  type: erroApiResponse
+})
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
 
