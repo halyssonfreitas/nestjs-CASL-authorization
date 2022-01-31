@@ -8,7 +8,7 @@ import { User } from './entities/user.entity';
 import { userForReturnFindAll } from './dto/return-user.dto';
 import { erroApiResponse } from '../util/dto/error-ApiResponse.dto';
 
-@Controller('user')
+@Controller('users')
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 @ApiTags('User')
