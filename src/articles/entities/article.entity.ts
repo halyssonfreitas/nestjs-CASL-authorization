@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEmpty } from "class-validator";
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { User } from "src/users/entities/user.entity";
+import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Article {
@@ -14,7 +15,6 @@ export class Article {
     @ApiProperty()
     isPublished: boolean;
     
-    @Column()
-    @ApiProperty()
-    authorId: number;
+    @ManyToOne(() => User, authorId => authorId.id)
+    author: string;
 }

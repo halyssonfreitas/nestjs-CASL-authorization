@@ -1,11 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { Article } from './entities/article.entity';
+const crypto = require('crypto');
 
 @Injectable()
 export class ArticlesService {
+
+  constructor(
+    @InjectRepository(Article) private articleRepository : Repository<Article>
+  ) { }
+
   create(createArticleDto: CreateArticleDto) {
-    return 'This action adds a new article';
+    createArticleDto.id = crypto.randomUUID()
+    createArticleDto.isPublished = true
+    return this.articleRepository.save(createArticleDto);
   }
 
   findAll() {

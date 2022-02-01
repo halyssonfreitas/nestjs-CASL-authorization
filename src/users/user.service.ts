@@ -28,7 +28,7 @@ export class UserService {
 
   async findOne(id: string) {
     const user = await this.userRepository.findOne({
-      select: ['id', 'username', 'email'],
+      select: ['id', 'username', 'email', 'isAdmin'],
       where: {id: id}
     })
     if (!user) {

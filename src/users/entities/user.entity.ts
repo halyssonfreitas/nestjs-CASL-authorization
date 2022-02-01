@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
-import {IsEmail, IsEmpty} from "class-validator";
+import { IsEmail, IsEmpty } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
+import { Article } from "src/articles/entities/article.entity";
 
 @Entity()
 export class User {
@@ -26,5 +27,8 @@ export class User {
     @Column()
     @ApiProperty()
     isAdmin: Boolean
+
+    @OneToMany(() => Article, article => article.author)
+    articles: Article[]
 
 }
